@@ -75,11 +75,14 @@ class Application(Gtk.Application):
         self.text_entry.set_margin_bottom(5)
         self.text_entry.set_margin_start(5)
         self.text_entry.set_margin_end(5)
+        
+        # Create a horizontal box to hold the entry and button
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
 
         # Create a text entry for the secret key
         self.key_entry = Gtk.Entry()
         self.key_entry.set_placeholder_text('Enter secret key')
-        grid.attach(self.key_entry, 1, 0, 1, 1)
+        hbox.append(self.key_entry)
         self.key_entry.set_hexpand(True)
         self.key_entry.set_margin_top(5)
         self.key_entry.set_margin_bottom(5)
@@ -89,11 +92,15 @@ class Application(Gtk.Application):
         # Create a button to generate a secret key
         generate_key_button = Gtk.Button(label='Generate Key')
         generate_key_button.set_action_name('app.generate_key')
-        grid.attach(generate_key_button, 2, 0, 1, 1)
+        hbox.append(generate_key_button)
         generate_key_button.set_margin_top(5)
         generate_key_button.set_margin_bottom(5)
         generate_key_button.set_margin_start(5)
         generate_key_button.set_margin_end(5)
+        
+        # Attach the horizontal box to the grid
+        grid.attach(hbox, 1, 0, 1, 1)
+        hbox.set_hexpand(True)
 
         # Create a horizontal separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
@@ -102,22 +109,25 @@ class Application(Gtk.Application):
         separator.set_margin_bottom(10)
 
         # Create a button to encrypt the text
+        hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
         encrypt_button = Gtk.Button(label='Encrypt')
         encrypt_button.set_action_name('app.encrypt')
-        grid.attach(encrypt_button, 0, 3, 1, 1)
         encrypt_button.set_margin_top(5)
         encrypt_button.set_margin_bottom(5)
         encrypt_button.set_margin_start(5)
         encrypt_button.set_margin_end(5)
+        hbox2.append(encrypt_button)
 
         # Create a button to decrypt the text
         decrypt_button = Gtk.Button(label='Decrypt')
         decrypt_button.set_action_name('app.decrypt')
-        grid.attach(decrypt_button, 1, 3, 1, 1)
         decrypt_button.set_margin_top(5)
         decrypt_button.set_margin_bottom(5)
         decrypt_button.set_margin_start(5)
         decrypt_button.set_margin_end(5)
+        hbox2.append(decrypt_button)
+        grid.attach(hbox2, 1, 3, 1, 1)
+        hbox2.set_hexpand(True)
 
         # Create a text view to display the result
         self.result_view = Gtk.TextView()
